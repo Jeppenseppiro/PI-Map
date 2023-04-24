@@ -52,7 +52,7 @@ L.Control.Coordinates = L.Control.extend({
 
         window.prompt(
           this.options.promptText,
-          latCoordinate + "," + lngCoordinate
+          lngCoordinate + ", " + latCoordinate
         );
       },
       this

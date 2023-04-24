@@ -4,7 +4,7 @@
 
 <script>
 import { onMounted, ref, computed, watch } from "vue";
-import { PASAR } from "../../Shared/choropleth";
+import { PASAR, style } from "../../Shared/choropleth";
 // import { statesData } from "../../Shared/us-states";
 
 export default {
@@ -55,6 +55,7 @@ export default {
         onEachFeature: function (feature, layer) {
           layer.bindPopup(`${feature.properties.name}`);
         },
+        style: style,
       }).addTo(map);
     });
   },
