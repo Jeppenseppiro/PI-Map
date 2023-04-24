@@ -4,6 +4,8 @@
 
 <script>
 import { onMounted, ref, computed, watch } from "vue";
+import { PASAR } from "../../Shared/choropleth";
+// import { statesData } from "../../Shared/us-states";
 
 export default {
   props: {},
@@ -17,6 +19,16 @@ export default {
         {
           maxZoom: 20,
           subdomains: ["mt0", "mt1", "mt2", "mt3"],
+        }
+      );
+
+      // OpenStreetMap Mapnik
+      let OpenStreetMap_Mapnik = L.tileLayer(
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+          maxZoom: 19,
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         }
       );
 
@@ -37,6 +49,13 @@ export default {
       map.on("click", function (e) {
         mouseCoordinates.setCoordinates(e);
       });
+
+      //Choropleth
+      L.geoJson(PASAR, {
+        onEachFeature: function (feature, layer) {
+          layer.bindPopup(`${feature.properties.name}`);
+        },
+      }).addTo(map);
     });
   },
 };
