@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PiDataController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +15,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    // return view('welcome');
-    return Inertia::render('Dashboard/Index', [
-        'name' => 'Jeff',
-    ]);
-});
+Route::get('/', [PiDataController::class, 'index'])->name('index');

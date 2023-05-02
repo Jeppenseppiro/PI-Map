@@ -9,7 +9,7 @@ import { PASAR, style } from "../../Shared/choropleth";
 
 let locationLayer = L.geoJson(PASAR, {
   onEachFeature: function (feature, layer) {
-    layer.bindPopup(`${feature.properties.name}`);
+    layer.bindPopup(`${feature.properties.title}`);
   },
   style: style,
 });
