@@ -2,7 +2,7 @@ const PASAR = [
   {
     type: "Feature",
     properties: {
-      name: "Smelter",
+      title: "Smelter",
     },
     geometry: {
       type: "Polygon",

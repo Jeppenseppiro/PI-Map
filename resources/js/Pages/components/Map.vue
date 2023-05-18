@@ -7,6 +7,16 @@ import { onMounted, ref, computed, watch } from "vue";
 import { PASAR, style } from "../../Shared/choropleth";
 // import { statesData } from "../../Shared/us-states";
 
+let locationLayer = L.geoJson(PASAR, {
+  onEachFeature: function (feature, layer) {
+    layer.bindPopup(`${feature.properties.title}`);
+  },
+  style: style,
+});
+
+let mapGroup = new L.featureGroup();
+mapGroup.addLayer(locationLayer);
+
 export default {
   props: {},
   setup() {
@@ -51,12 +61,24 @@ export default {
       });
 
       //Choropleth
-      L.geoJson(PASAR, {
-        onEachFeature: function (feature, layer) {
-          layer.bindPopup(`${feature.properties.name}`);
-        },
-        style: style,
-      }).addTo(map);
+      map.addLayer(mapGroup);
+
+      map.addControl(
+        new L.Control.Search({
+          layer: mapGroup,
+          position: "topright",
+          initial: false,
+          collapsed: true,
+          marker: {
+            icon: false,
+            animate: true,
+            circle: {
+              weight: 5,
+              radius: 20,
+            },
+          },
+        })
+      );
     });
   },
 };
